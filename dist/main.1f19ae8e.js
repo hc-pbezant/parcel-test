@@ -8938,6 +8938,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 // The raw data to observe
 var stats = [{
   label: "A",
@@ -9060,7 +9061,7 @@ exports.default = _default;
       { attrs: { type: "text/x-template", id: "polygraph-template" } },
       [
         _vm._v(
-          '\n<g>\n  <polygon :points="points"></polygon>\n  <circle cx="100" cy="100" r="80"></circle>\n  <axis-label\n    v-for="(stat, index) in stats"\n    :stat="stat"\n    :index="index"\n    :total="stats.length">\n  </axis-label>\n</g>\n  '
+          '\n<g>\n  <polygon :points="points"></polygon>\n  <circle cx="100" cy="100" r="80"></circle>\n  <axis-label\n    v-for="(stat, index) in stats"\n    :stat="stat"\n    :index="index"\n    :key="stat.id"\n    :total="stats.length">\n  </axis-label>\n</g>\n  '
         )
       ]
     ),
@@ -9204,7 +9205,7 @@ new _vue.default({
   render: function render(h) {
     return h(_App.default);
   }
-}).$mount("#app");
+}).$mount("app");
 },{"vue":"node_modules/vue/dist/vue.runtime.esm.js","./js/App":"js/App.vue"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
