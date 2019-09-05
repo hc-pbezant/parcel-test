@@ -2,7 +2,7 @@
   "name": "parcel-test",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "parcel index.html",
@@ -12,7 +12,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "js": "^0.1.0",
     "parcel-bundler": "^1.12.3",
-    "vue": "^2.6.10"
+    "polygraph": "0.0.0",
+    "vue": "^2.6.10",
+    "vue-hot-reload-api": "^2.3.3"
+  },
+  "devDependencies": {
+    "@vue/component-compiler-utils": "^3.0.0",
+    "pug": "^2.0.4",
+    "sass": "^1.23.0-module.beta.1",
+    "typescript": "^3.6.2",
+    "vue-template-compiler": "^2.6.10"
   }
 }
