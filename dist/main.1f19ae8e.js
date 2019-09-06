@@ -8934,11 +8934,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
-//
-//
-//
-//
 // The raw data to observe
 var stats = [{
   label: "A",
@@ -8962,7 +8957,7 @@ var stats = [{
 
 _vue.default.component("polygraph", {
   props: ["stats"],
-  template: "#polygraph-template",
+  //template: "#polygraph-template",
   computed: {
     // a computed property for the polygon's points
     points: function points() {
@@ -8981,7 +8976,7 @@ _vue.default.component("polygraph", {
         index: Number,
         total: Number
       },
-      template: "#axis-label-template",
+      //template: "#axis-label-template",
       computed: {
         point: function point() {
           return valueToPoint(+this.stat.value + 10, this.index, this.total);
@@ -9012,17 +9007,13 @@ var _default = {
   data: function data() {
     return {
       newLabel: "",
-      stat: "",
-      stats: stats
+      stat: {},
+      stats: stats,
+      points: "",
+      point: ""
     };
   },
-  components: {
-    "polygraph": {
-      props: {
-        points: Object
-      }
-    }
-  },
+  components: {},
   methods: {
     add: function add(e) {
       e.preventDefault();
@@ -9055,37 +9046,62 @@ exports.default = _default;
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "script",
-      { attrs: { type: "text/x-template", id: "polygraph-template" } },
-      [
-        _vm._v(
-          '\n<g>\n  <polygon :points="points"></polygon>\n  <circle cx="100" cy="100" r="80"></circle>\n  <axis-label\n    v-for="(stat, index) in stats"\n    :stat="stat"\n    :index="index"\n    :key="stat.id"\n    :total="stats.length">\n  </axis-label>\n</g>\n  '
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "script",
-      { attrs: { type: "text/x-template", id: "axis-label-template" } },
-      [
-        _vm._v(
-          '\n<text :x="point.x" :y="point.y">' +
-            _vm._s(_vm.stat.label) +
-            "</text>\n  "
-        )
-      ]
-    ),
-    _vm._v(" "),
+  return _c("div", { attrs: { id: "polygon" } }, [
     _c(
       "div",
-      { attrs: { id: "demo" } },
+      { attrs: { id: "display" } },
       [
         _c(
           "svg",
           { attrs: { width: "200", height: "200" } },
-          [_c("polygraph", { attrs: { stats: _vm.stats } })],
+          [
+            _c("polygraph", {
+              attrs: { stats: _vm.stats },
+              inlineTemplate: {
+                render: function() {
+                  var _vm = this
+                  var _h = _vm.$createElement
+                  var _c = _vm._self._c || _h
+                  return _c(
+                    "g",
+                    [
+                      _c("polygon", { attrs: { points: _vm.points } }),
+                      _vm._v(" "),
+                      _c("circle", {
+                        attrs: { cx: "100", cy: "100", r: "80" }
+                      }),
+                      _vm._v(" "),
+                      _vm._l(_vm.stats, function(stat, index) {
+                        return _c("axis-label", {
+                          key: index,
+                          attrs: {
+                            stat: stat,
+                            index: index,
+                            total: _vm.stats.length
+                          },
+                          inlineTemplate: {
+                            render: function() {
+                              var _vm = this
+                              var _h = _vm.$createElement
+                              var _c = _vm._self._c || _h
+                              return _c(
+                                "text",
+                                { attrs: { x: _vm.point.x, y: _vm.point.y } },
+                                [_vm._v(_vm._s(stat.label))]
+                              )
+                            },
+                            staticRenderFns: []
+                          }
+                        })
+                      })
+                    ],
+                    2
+                  )
+                },
+                staticRenderFns: []
+              }
+            })
+          ],
           1
         ),
         _vm._v(" "),
@@ -9153,14 +9169,14 @@ exports.default = _default;
           _c("button", { on: { click: _vm.add } }, [_vm._v("Add a Stat")])
         ]),
         _vm._v(" "),
-        _c("pre", { attrs: { id: "raw" } }, [_vm._v(_vm._s(_vm.stats))])
+        _c("p", { staticStyle: { "font-size": "12px" } }, [
+          _vm._v('* input[type="range"] requires IE10 or above.')
+        ])
       ],
       2
     ),
     _vm._v(" "),
-    _c("p", { staticStyle: { "font-size": "12px" } }, [
-      _vm._v('* input[type="range"] requires IE10 or above.')
-    ])
+    _c("pre", { attrs: { id: "raw" } }, [_vm._v(_vm._s(_vm.stats))])
   ])
 }
 var staticRenderFns = []
@@ -9234,7 +9250,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55011" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61214" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

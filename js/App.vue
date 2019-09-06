@@ -1,30 +1,25 @@
 <template>
-  <div>
-    <!-- template for the polygraph component. -->
-    <script type="text/x-template" id="polygraph-template">
-  <g>
-    <polygon :points="points"></polygon>
-    <circle cx="100" cy="100" r="80"></circle>
-    <axis-label
-      v-for="(stat, index) in stats"
-      :stat="stat"
-      :index="index"
-      :key="stat.id"
-      :total="stats.length">
-    </axis-label>
-  </g>
-    </script>
-
-    <!-- template for the axis label component. -->
-    <script type="text/x-template" id="axis-label-template">
-  <text :x="point.x" :y="point.y">{{stat.label}}</text>
-    </script>
-
     <!-- demo root element -->
-    <div id="demo">
+    <div id="polygon">
+        <div id="display">
       <!-- Use the component -->
       <svg width="200" height="200">
-        <polygraph :stats="stats" />
+        <polygraph :stats="stats" inline-template>
+          <g>
+            <polygon :points="points" />
+            <circle cx="100" cy="100" r="80" />
+            <axis-label
+              v-for="(stat, index) in stats"
+              :stat="stat"
+              :index="index"
+              :key="index"
+              :total="stats.length"
+              inline-template
+            >
+              <text :x="point.x" :y="point.y">{{stat.label}}</text>
+            </axis-label>
+          </g>
+        </polygraph>
       </svg>
       <!-- controls -->
       <div v-for="(stat, index) in stats" :key="index">
@@ -37,11 +32,11 @@
         <input name="newlabel" v-model="newLabel" />
         <button @click="add">Add a Stat</button>
       </form>
+      <p style="font-size:12px">* input[type="range"] requires IE10 or above.</p>
+      </div>
       <pre id="raw">{{ stats }}</pre>
+        
     </div>
-
-    <p style="font-size:12px">* input[type="range"] requires IE10 or above.</p>
-  </div>
 </template>
 <script>
 import Vue from "vue";
@@ -59,7 +54,7 @@ var stats = [
 // A resusable polygon graph component
 Vue.component("polygraph", {
   props: ["stats"],
-  template: "#polygraph-template",
+  //template: "#polygraph-template",
   computed: {
     // a computed property for the polygon's points
     points: function() {
@@ -80,7 +75,7 @@ Vue.component("polygraph", {
         index: Number,
         total: Number
       },
-      template: "#axis-label-template",
+      //template: "#axis-label-template",
       computed: {
         point: function() {
           return valueToPoint(+this.stat.value + 10, this.index, this.total);
@@ -106,22 +101,18 @@ function valueToPoint(value, index, total) {
 }
 
 // bootstrap the demo
-export default({
-//   el: "#demo",
-  data(){
-      return{
-          newLabel: "",
-        stat:"",
-        stats: stats
-      }
+export default {
+  //   el: "#demo",
+  data() {
+    return {
+      newLabel: "",
+      stat: {},
+      stats: stats,
+      points: "",
+      point: ""
+    };
   },
-  components:{
-      "polygraph":{
-         props:{
-            points: Object,
-         }
-      }
-  },
+  components: {},
   methods: {
     add: function(e) {
       e.preventDefault();
@@ -140,5 +131,5 @@ export default({
       }
     }
   }
-});
+};
 </script>
